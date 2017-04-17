@@ -18,6 +18,12 @@ class GroupsController < ApplicationController
     redirect_to groups_path, notice:"Update Success"
   end
 
+  def destroy
+    @group = Group.find(params[:id])
+    @group.destroy
+    flash[:alert] = "板块成功删除"
+    redirect_to groups_path
+  end
 
   def new
     @group = Group.new
