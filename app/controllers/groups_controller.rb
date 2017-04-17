@@ -21,8 +21,8 @@ class GroupsController < ApplicationController
   def destroy
     @group = Group.find(params[:id])
     @group.destroy
-    flash[:alert] = "板块成功删除"
-    redirect_to groups_path
+    # flash[:alert] = "板块成功删除"
+    redirect_to groups_path,alert:"delete completed"
   end
 
   def new
@@ -31,14 +31,18 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    @group.save
+    if @group.save
 
       redirect_to groups_path
+    else
+      render :new
     end
-
+  end
+  
   private
 
   def group_params
     params.require(:group).permit(:title, :description)
   end
+
 end
